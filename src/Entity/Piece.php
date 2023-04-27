@@ -23,8 +23,6 @@ class Piece
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?string $prix = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $etat = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $siteStockage = null;
@@ -32,6 +30,9 @@ class Piece
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?TypePiece $typePiece = null;
+
+    #[ORM\ManyToOne(inversedBy: 'piece')]
+    private ?Etat $etatPiece = null;
 
     public function getId(): ?int
     {
@@ -74,17 +75,6 @@ class Piece
         return $this;
     }
 
-    public function getEtat(): ?string
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(?string $etat): self
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
 
     public function getSiteStockage(): ?string
     {
@@ -106,6 +96,18 @@ class Piece
     public function setTypePiece(?TypePiece $typePiece): self
     {
         $this->typePiece = $typePiece;
+
+        return $this;
+    }
+
+    public function getEtatPiece(): ?Etat
+    {
+        return $this->etatPiece;
+    }
+
+    public function setEtatPiece(?Etat $etatPiece): self
+    {
+        $this->etatPiece = $etatPiece;
 
         return $this;
     }

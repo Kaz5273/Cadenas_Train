@@ -5,6 +5,7 @@
 {% block body %}
     <h1>Les demandes de {{ user.nom }}</h1>
 
+    {{ dump(demandes) }}
     <table class="table">
         <thead>
         <tr>
@@ -36,12 +37,14 @@
                 </td>
             </tr>
         {% else %}
+
             <tr>
                 <td colspan="9">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
     {% if user.estBloque == true %}
         <a class="nav-link disabled" href="{{ path('app_saisir_demande') }}">Create new</a>
     {% endif %}

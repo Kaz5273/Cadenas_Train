@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Etat;
 use App\Entity\Piece;
 use App\Entity\TypePiece;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,7 +21,10 @@ class PieceType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('prix')
-            ->add('etat')
+            ->add('etat', EntityType::class, [
+                'class' => Etat::class,
+                'choice_label' => 'libelle',
+            ])
             ->add('siteStockage')
             ->add('typePiece', EntityType::class, [
                 'class' => TypePiece::class,

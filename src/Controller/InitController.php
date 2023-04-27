@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Demande;
+use App\Entity\Etat;
 use App\Entity\Piece;
 use App\Entity\TypePiece;
 use App\Entity\User;
@@ -17,6 +18,21 @@ class InitController extends AbstractController
     #[Route('/init', name: 'app_init')]
     public function index(ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher): Response
     {
+        $etat1 = new Etat();
+        $etat1->setLibelle('Neuf');
+        $doctrine->getManager()->persist($etat1);
+        $doctrine->getManager()->flush();
+
+        $etat2 = new Etat();
+        $etat2->setLibelle('Occasion');
+        $doctrine->getManager()->persist($etat2);
+        $doctrine->getManager()->flush();
+
+        $etat3 = new Etat();
+        $etat3->setLibelle('Neuf-réparé');
+        $doctrine->getManager()->persist($etat3);
+        $doctrine->getManager()->flush();
+
         $client1 = new User();
         $client1->setNom('Etienne Buffet');
         $client1->setAdresse('2 avenue du Rhone 74000 ANNECY');
@@ -60,7 +76,7 @@ class InitController extends AbstractController
 
         $piece1 = new Piece();
         $piece1->setTypePiece($typePiece1);
-        $piece1->setEtat('Neuf');
+        $piece1->setEtatPiece($etat1);
         $piece1->setPrix(240050);
         $piece1->setDateFabrication(new \DateTime('20220323'));
         $piece1->setNumSerie('2A343A344Z');
@@ -70,7 +86,7 @@ class InitController extends AbstractController
 
         $piece2 = new Piece();
         $piece2->setTypePiece($typePiece2);
-        $piece2->setEtat('Occasion');
+        $piece2->setEtatPiece($etat2);
         $piece2->setPrix(143234);
         $piece2->setDateFabrication(new \DateTime('20220621'));
         $piece2->setNumSerie('4AR45A344Z');
@@ -80,7 +96,7 @@ class InitController extends AbstractController
 
         $piece3 = new Piece();
         $piece3->setTypePiece($typePiece3);
-        $piece3->setEtat('Neuf');
+        $piece3->setEtatPiece($etat1);
         $piece3->setPrix(2453);
         $piece3->setDateFabrication(new \DateTime('20211005'));
         $piece3->setNumSerie('AAR45A3ERZ');
@@ -90,7 +106,7 @@ class InitController extends AbstractController
 
         $piece4 = new Piece();
         $piece4->setTypePiece($typePiece2);
-        $piece4->setEtat('Neuf');
+        $piece4->setEtatPiece($etat1);
         $piece4->setPrix(2453);
         $piece4->setDateFabrication(new \DateTime('20211104'));
         $piece4->setNumSerie('AAE4RA3ERZ');

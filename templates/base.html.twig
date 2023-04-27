@@ -29,8 +29,18 @@
                                     <a class="nav-link" aria-current="page" href="{{ path('app_mes_demandes') }}">Mes demandes</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('app_saisir_demande') }}">Saisir une demande</a>
+                                    <a class="nav-link" aria-current="page" href="{{ path('app_mes_demandesNC') }}">Mes demandes demande non-confirmées</a>
                                 </li>
+                                 {% if app.user.estBloque == true %}
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" href="{{ path('app_saisir_demande') }}">Saisir une demande</a>
+                                </li>
+                                     {% endif %}
+                                {% if app.user.estBloque == false %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('app_saisir_demande') }}">Saisir une demande</a>
+                                    </li>
+                                {% endif %}
                             {% endif %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,6 +59,15 @@
                                     {% endif %}
                                 </ul>
                             </li>
+
+
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {% if app.user.estBloque == true %}
+                            <div class="alert alert-danger" role="alert">
+                                Attention - Vous êtes un utilisateur bloqué !
+                            </div>
+                            {% endif %}
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
